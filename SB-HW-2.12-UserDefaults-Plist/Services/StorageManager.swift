@@ -50,10 +50,14 @@ class StorageManager {
         
     }
     
-    func saveToFile(with contact: Contact) {
+    func saveToFile(with contact: Contact, index: Int? = nil) {
         var contacts = fetchFromFile()
-        contacts.append(contact)
-        
+        if let index = index {
+            contacts[index] = contact
+        } else {
+            contacts.append(contact)
+        }
+
         guard let data = try? PropertyListEncoder().encode(contacts) else {
             return
         }

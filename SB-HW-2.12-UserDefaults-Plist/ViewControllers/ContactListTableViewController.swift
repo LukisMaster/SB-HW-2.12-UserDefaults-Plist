@@ -9,11 +9,24 @@ import UIKit
 
 class ContactListTableViewController: UITableViewController {
     
-    private var contacts = Contact.defaultContactList()
+    private var contacts : [Contact] = StorageManager.shared.fetchFromFile()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if contacts.isEmpty {
+            contacts = Contact.defaultContactList()
+            contacts.forEach { contact in
+                StorageManager.shared.saveToFile(with: contact)
+            }
+        }
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Contact", for: indexPath)
@@ -26,6 +39,17 @@ class ContactListTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            contacts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+//          StorageManager.shared.deleteContact(at: indexPath.row)
+            StorageManager.shared.deleteFromFile(at: indexPath.row)
+        }
+    }
+    
     
     // MARK: Navigation
     

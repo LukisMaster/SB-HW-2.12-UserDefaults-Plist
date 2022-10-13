@@ -44,14 +44,48 @@ class AddContactViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
-        let contactListVC = delegate as! ContactListTableViewController
+//        let contactListVC = delegate as! ContactListTableViewController
+//        switch typeView {
+//        case .add: addContact(contactListVC)
+//        case .edit: changeContact(contactListVC)
+//        }
         switch typeView {
-        case .add: addContact(contactListVC)
-        case .edit: changeContact(contactListVC)
+        case .add: addContact()
+        case .edit: changeContact()
         }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
+    private func showAlert () {
+        let alert = UIAlertController(title: "Внимание", message: "Заполните все поля, чтобы добавить новый контакт", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    
+    //MARK: Setting data for storage and delegate
+    
+    private func addContact () {
+        guard !(nameTextField.text!.isEmpty || familyTextField.text!.isEmpty || phoneTextField.text!.isEmpty) else {
+            showAlert()
+            return
+        }
+        contact = Contact(name: nameTextField.text!, familyName: familyTextField.text!, phone: familyTextField.text!)
+        StorageManager.shared.saveToFile(with: contact, index: nil)
+        delegate.saveContact(contact)
+    }
+    
+    private func changeContact (){
+        if !nameTextField.text!.isEmpty {contact.name = nameTextField.text!}
+        if !familyTextField.text!.isEmpty {contact.familyName = familyTextField.text!}
+        if !phoneTextField.text!.isEmpty {contact.phone = phoneTextField.text!}
+        StorageManager.shared.saveToFile(with: contact, index: index)
+        delegate.saveContact(contact, index: index)
+    }
+     
+    
+    /*
     //MARK: Setting data for delegate
     
     private func addContact (_ destVC: ContactListTableViewController) {
@@ -69,11 +103,7 @@ class AddContactViewController: UIViewController {
         if !phoneTextField.text!.isEmpty {contact.phone = phoneTextField.text!}
         destVC.saveContact(contact, index: index)
     }
-    
-    private func showAlert () {
-        let alert = UIAlertController(title: "Внимание", message: "Заполните все поля, чтобы добавить новый контакт", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        self.present(alert, animated: true)
-    }
+     */
+
 
 }
