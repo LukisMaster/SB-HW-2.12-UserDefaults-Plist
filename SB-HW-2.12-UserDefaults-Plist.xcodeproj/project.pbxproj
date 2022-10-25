@@ -62,10 +62,9 @@
 		2D885BAB28F84E400003A7C0 /* SB-HW-2.12-UserDefaults-Plist */ = {
 			isa = PBXGroup;
 			children = (
+				2D935C2A29084301005DDAD0 /* StoryBoards */,
 				2D885BC928F882AA0003A7C0 /* Services */,
 				2D885BC428F85C670003A7C0 /* Models */,
-				2D885BAC28F84E400003A7C0 /* AppDelegate.swift */,
-				2D885BAE28F84E400003A7C0 /* SceneDelegate.swift */,
 				2D885BC328F8558E0003A7C0 /* ViewControllers */,
 				2D885BC728F882210003A7C0 /* App */,
 				2D885BC828F8828B0003A7C0 /* Resources */,
@@ -93,8 +92,8 @@
 		2D885BC728F882210003A7C0 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				2D885BB228F84E400003A7C0 /* Main.storyboard */,
-				2D885BB728F84E420003A7C0 /* LaunchScreen.storyboard */,
+				2D885BAC28F84E400003A7C0 /* AppDelegate.swift */,
+				2D885BAE28F84E400003A7C0 /* SceneDelegate.swift */,
 				2D885BBA28F84E420003A7C0 /* Info.plist */,
 			);
 			path = App;
@@ -114,6 +113,15 @@
 				2D885BCA28F882CE0003A7C0 /* StorageManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2D935C2A29084301005DDAD0 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				2D885BB228F84E400003A7C0 /* Main.storyboard */,
+				2D885BB728F84E420003A7C0 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
